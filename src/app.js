@@ -27,7 +27,7 @@ class App extends React.Component {
               <Route exact path="/">
 
                 {/* TODO: if the user is logged in, render the `MyFavoriteBooks` component, if they are not, render the `Login` component */}
-                {this.props.auth0.isAuthenticated == true  ?  <MyFavoriteBooks />:<Login />}
+                {this.props.auth0.isAuthenticated === true  ?  <MyFavoriteBooks />:<Login />}
 
               </Route>
               <Route path='/profile'>
