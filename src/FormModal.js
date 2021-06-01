@@ -29,7 +29,7 @@ export class FormModal extends Component {
                             </Form.Group>
 
                             <Button variant="primary" type="submit">
-                            ➕ Add Book
+                             Add Book
                             </Button>
                         </Form>
                     </Modal.Body>

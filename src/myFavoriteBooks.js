@@ -109,7 +109,7 @@ class MyFavoriteBooks extends React.Component {
           This is a collection of my favorite books
         </p>
 
-        <Button variant="primary" onClick={this.handleShowModal}>➕Add a Book</Button>
+        <Button variant="primary" onClick={this.handleShowModal}>➕</Button>
 
         {this.state.showModal && <FormModal closeModalFx={this.handleCloseModal} showModal={this.state.showModal} updateBookName={this.updateBookName} updateDescription={this.updateDescription} updateImgUrl={this.updateImgUrl} addBooks={ this.addBooks} />}
 
@@ -127,7 +127,7 @@ class MyFavoriteBooks extends React.Component {
                       <Card.Text style={{ overflow: 'auto', height: '5rem' }}>
                         {item.description}
                       </Card.Text>
-                      <Button variant="primary" onClick={() => this.deleteBook(idx)}>🗑️Delete</Button>
+                      <Button variant="primary" onClick={() => this.deleteBook(idx)}>🗑️</Button>
                     </Card.Body>
                   </Card>
                 </div>
