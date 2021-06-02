@@ -10,8 +10,10 @@ import CardColumns from 'react-bootstrap/CardColumns';
 import FormModal from './FormModal';
 import UpdateBook from './updateBook';
 
-class MyFavoriteBooks extends React.Component {
 
+
+class MyFavoriteBooks extends React.Component {
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -23,11 +25,12 @@ class MyFavoriteBooks extends React.Component {
       image_url: '',
       showUpdate: false,
       index: 0,
+      server:process.env.REACT_SERVER
+  
     }
   }
-
   componentDidMount = async () => {
-    const books = await axios.get('http://localhost:3001/books', { params: { email: this.props.auth0.user.email } })
+    const books = await axios.get(`${this.state.server}/books`, { params: { email: this.props.auth0.user.email } })
     console.log('books', books.data)
     this.setState({
       books: books.data,
@@ -80,7 +83,7 @@ class MyFavoriteBooks extends React.Component {
       email: this.props.auth0.user.email
     }
 
-    const newBooks = await axios.post('http://localhost:3001/addBooks', bookFormData)
+    const newBooks = await axios.post(`${this.state.server}/addBooks`, bookFormData)
 
     this.setState({
       books: newBooks.data,
@@ -93,7 +96,7 @@ class MyFavoriteBooks extends React.Component {
       email: this.props.auth0.user.email
     }
 
-    let newBooks = await axios.delete(`http://localhost:3001/deleteBook/${index}`, { params: email })
+    let newBooks = await axios.delete(`${this.state.server}/deleteBook/${index}`, { params: email })
 
     this.setState({
       books: newBooks.data
@@ -110,7 +113,7 @@ class MyFavoriteBooks extends React.Component {
 
     }
 
-    let updatesBook = await axios.put(`http://localhost:3001/updateBook/${this.state.index}`, liberyData)
+    let updatesBook = await axios.put(`${this.state.server}/updateBook/${this.state.index}`, liberyData)
     this.setState({
       books: updatesBook.data
     })
