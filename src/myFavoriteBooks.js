@@ -8,6 +8,7 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import CardColumns from 'react-bootstrap/CardColumns';
 import FormModal from './FormModal';
+import UpdateBook from './updateBook';
 
 class MyFavoriteBooks extends React.Component {
 
@@ -19,7 +20,9 @@ class MyFavoriteBooks extends React.Component {
       showModal: false,
       bookName: '',
       description: '',
-      image_url: ''
+      image_url: '',
+      showUpdate: false,
+      index: 0,
     }
   }
 
@@ -49,7 +52,7 @@ class MyFavoriteBooks extends React.Component {
       bookName: event.target.value,
 
     })
-    console.log(this.state.bookName);
+    console.log('y',this.state.bookName);
 
   }
   updateDescription = (event) => {
@@ -97,6 +100,39 @@ class MyFavoriteBooks extends React.Component {
     })
   }
 
+  updateBook = async (e) => {
+
+    const liberyData = {
+      name: this.state.bookName,
+      description: this.state.description,
+      image_url: this.state.image_url,
+      email: this.props.auth0.user.email
+
+    }
+
+    let updatesBook = await axios.put(`http://localhost:3001/updateBook/${this.state.index}`, liberyData)
+    this.setState({
+      books: updatesBook.data
+    })
+
+
+  }
+  updateModal = (idx) => {
+    const choosenBook = this.state.books.filter((val, index) => {
+      return idx === index;
+    })
+
+    console.log('before', choosenBook);
+    this.setState({
+      showUpdate: true,
+      index: idx,
+      name: choosenBook[0].name,
+      description: choosenBook[0].description,
+      image_url: choosenBook[0].image_url
+    })
+
+    // console.log('after', choosenBook[0]);
+  }
 
 
 
@@ -111,7 +147,8 @@ class MyFavoriteBooks extends React.Component {
 
         <Button variant="primary" onClick={this.handleShowModal}>➕</Button>
 
-        {this.state.showModal && <FormModal closeModalFx={this.handleCloseModal} showModal={this.state.showModal} updateBookName={this.updateBookName} updateDescription={this.updateDescription} updateImgUrl={this.updateImgUrl} addBooks={ this.addBooks} />}
+
+        {this.state.showModal && <FormModal closeModalFx={this.handleCloseModal} showModal={this.state.showModal} updateBookName={this.updateBookName} updateDescription={this.updateDescription} updateImgUrl={this.updateImgUrl} addBooks={this.addBooks} />}
 
         {this.state.showBooks &&
 
@@ -128,13 +165,26 @@ class MyFavoriteBooks extends React.Component {
                         {item.description}
                       </Card.Text>
                       <Button variant="primary" onClick={() => this.deleteBook(idx)}>🗑️</Button>
+                      <Button variant="primary" onClick={()=>this.updateModal(idx)}>🆙➕</Button>
+
                     </Card.Body>
                   </Card>
+                 
                 </div>
               )
-            })}
+            })
+            }
+
           </CardColumns>
         }
+
+        {this.state.showUpdate &&
+
+        <UpdateBook
+        showUpdate={this.state.showUpdate}
+            closeModalFx={this.handleCloseModal} showModal={this.updateModal} updateBookName={this.updateBookName} updateDescription={this.updateDescription} updateImgUrl={this.updateImgUrl} updateBook={this.updateBook}
+          /> 
+         }
       </Jumbotron>
     )
   }
