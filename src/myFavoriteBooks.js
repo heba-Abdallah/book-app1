@@ -52,7 +52,7 @@ class MyFavoriteBooks extends React.Component {
       bookName: event.target.value,
 
     })
-    console.log(this.state.bookName);
+    console.log('y',this.state.bookName);
 
   }
   updateDescription = (event) => {
@@ -103,9 +103,11 @@ class MyFavoriteBooks extends React.Component {
   updateBook = async (e) => {
 
     const liberyData = {
-      name: this.state.name,
+      name: this.state.bookName,
       description: this.state.description,
-      image_url: this.state.image_url
+      image_url: this.state.image_url,
+      email: this.props.auth0.user.email
+
     }
 
     let updatesBook = await axios.put(`http://localhost:3001/updateBook/${this.state.index}`, liberyData)

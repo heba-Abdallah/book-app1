@@ -17,7 +17,7 @@ class UpdateBook extends Component {
                         <Form onSubmit={this.props.updateBook}>
                             <Form.Group controlId="formBasicEmail">
                                 <Form.Label>Book Name</Form.Label>
-                                <Form.Control type="text" placeholder="Enter Book Name" name="bookName" onChange={this.props.updateBookName} />
+                                <Form.Control type="text" placeholder="Enter Book Name" name="bookName" onChange={(e)=>this.props.updateBookName(e)} />
                             </Form.Group>
 
                             <Form.Group controlId="formBasicPassword">
