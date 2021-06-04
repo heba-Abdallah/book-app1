@@ -11,7 +11,7 @@ class UpdateBook extends Component {
                  onHide={this.props.closeModalFx}
                  >
                     <Modal.Header closeButton>
-                        <Modal.Title>Add a Book</Modal.Title>
+                        <Modal.Title>Update</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <Form onSubmit={this.props.updateBook}>
@@ -30,7 +30,7 @@ class UpdateBook extends Component {
                             </Form.Group>
 
                             <Button variant="primary" type="submit">
-                             Add Book
+                             Update the Book
                             </Button>
                         </Form>
                     </Modal.Body>

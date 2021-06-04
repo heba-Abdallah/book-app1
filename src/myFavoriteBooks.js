@@ -168,7 +168,7 @@ class MyFavoriteBooks extends React.Component {
                         {item.description}
                       </Card.Text>
                       <Button variant="primary" onClick={() => this.deleteBook(idx)}>🗑️</Button>
-                      <Button variant="primary" onClick={()=>this.updateModal(idx)}>🆙➕</Button>
+                      <Button variant="primary" onClick={()=>this.updateModal(idx)}>🆙</Button>
 
                     </Card.Body>
                   </Card>
